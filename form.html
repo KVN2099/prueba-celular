@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Expotec</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="bg">
+
+</div>
+	<form id="login" method="POST">
+		<h1>- Expotec -</h1>
+		<p>Antes de llenar el formulario, recuerde que la información que brindará se utilizará solamente para fines educativos de la feria científica. Tome en cuenta la ortografía. Esta información será mostrada a visitantes de Expotec, por lo cual se recomienda que presente respuestas coherentes y honestas.</p>
+	<div><input placeholder="Nombre del proyecto" name="nombre" id="nombre" name="user" type="text" value="Quirat" autocomplete="off" autofocus></div>
+	<div>
+		<p>Especialidad</p>
+		<select required id="especialidad">
+			<!-- <option value=""></option> -->
+			<option value="Electromecánica">Electromecánica</option>
+			<option value="Electrónica">Electrónica</option>
+			<option value="Dibujo Arquitectónico">Dibujo Arquitectónico</option>
+			<option value="Informática en Redes">Informática en Redes</option>
+			<option value="Informática en Desarrollo de Software">Informática en Desarrollo de Software</option>
+			<option value="Diseño Gráfico">Diseño Gráfico</option>
+			<option value="Mecánica de Precisión">Mecánica de Precisión</option>
+		</select>
+	</div>	<!-- SELECT ESPECIALIDAD -->
+	<div>
+		<p>Grado</p>
+		<select required id="grado">
+			<!-- <option value=""></option> -->
+			<option value="Décimo">Décimo</option>
+			<option value="Undécimo">Undécimo</option>
+		</select>
+	</div>	<!-- SELECT GRADO -->
+
+	<p>Nombre completo (nombre, segundo nombre*, primer apellido, segundo apellido).</p>
+	<div><input type="text" value="Kevin Romero Oviedo" placeholder="Capitán del grupo" id="capitan-nombre"/></div>	<!-- INTEGRANTES -->
+	<button type="button" class="agregar func">+</button>
+	<button type="button" class="remove_field func">-</button>
+	<div id="bottom"><button class="envia" type="button" value="ENTRAR" onclick="objeto()">Enviar</button></div>
+	</form>
+	<form id="second">
+		<div>
+			<p>Sección</p>
+			<select required id="seccion">
+				<!-- <option value=""></option> -->
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+				<option value="E">E</option>
+				<option value="F">F</option>
+			</select>
+		</div>	<!-- SECCION -->
+		<div>
+			<p>Horario</p>
+			<select required id="horario">
+				<!-- <option value=""></option> -->
+				<option value="Primer Horario">Primer Horario</option>
+				<option value="Segundo Horario">Segundo Horario</option>
+			</select>
+		</div>	<!-- HORARIO -->
+		<div>
+			<p>Temática</p>
+			<select required id="tematica">
+				<!-- <option value=""></option> -->
+				<option value="Ciencia">Ciencia</option>
+				<option value="Ayuda Social">Ayuda Social</option>
+				<option value="Tecnología">Tecnología</option>
+				<option value="Educación">Educación</option>
+				<option value="Ecología">Ecología</option>
+				<option value="Salud">Salud</option>
+				<option value="Infrastructura">Infrastructura</option>
+			</select>
+		</div>	<!-- TEMATICA -->
+		<div>
+			<p>Profesor de Taller</p>
+		<select required id="profesor">
+			<!-- <option value=""></option> -->
+			<option value="Gloriela Rodriguez">Gloriela Rodríguez</option>	<!-- EMA -->
+			<option value="Luis Chacón">Luis Chacón</option>	<!-- EMA -->
+			<option value="Steven Leiva">Steven Leiva</option>	<!-- ECA -->
+			<option value="Fabián Garro">Fabián Garro</option>	<!-- ECA -->
+			<option value="christian Sáenz">Christian Sáenz</option>	<!-- ARQUI -->
+			<option value="Christian Gutierrez">Christian Gutierrez</option>	<!-- ARQUI -->
+			<option value="Cristian Agüero">Cristian Agüero</option>	<!-- REDES -->
+			<option value="Francisco Alvarado">Francisco Alvarado</option>	<!-- REDES -->
+			<option value="Mártir Canales">Mártir Canales</option>	<!-- DESARROLLO -->
+			<option value="Mario Vargas">Mario Vargas</option>	<!-- DESARROLLO -->
+			<option value="Oscar Bolaños">Oscar Bolaños</option>	<!-- DISENO -->
+			<option value="Wendy Zamora">Wendy Zamora</option>	<!-- DISENO -->
+			<option value="Cristian Marcel Gonzalez">Cristian Marcel González</option>	<!-- DISENO -->
+			<option value="Jeison Córdoba">Jeison Córdoba</option>	<!-- MECA -->
+			<option value="José Corrales">José Corrales</option>	<!-- MECA -->
+		</select>
+	</div>	<!-- PROFESOR -->
+	<div>
+		<input id="correo_capitan" value="kevinromerooviedo@gmail.com" placeholder="Correo del Capitán" required/>
+	</div>
+	<div id="qr">
+
+	</div>
+</form>
+
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+<script src="js/qrcode.js"></script>
+<script src="jquery/jquery-3.3.1.min.js"></script>
+<script src="js/firebase_proyecto.js"></script>
+<script type="text/javascript">	//	FUNCION INPUTS
+$(document).ready(function() {
+	//	Firebase
+	var firebaseConfig = {
+	apiKey: "AIzaSyBQr4apTtwzkj0JoE9BETfPIbgiUDGh2tI",
+	authDomain: "quirat-1c621.firebaseapp.com",
+	databaseURL: "https://quirat-1c621.firebaseio.com",
+	projectId: "quirat-1c621",
+	storageBucket: "",
+	messagingSenderId: "570172948637",
+	appId: "1:570172948637:web:3fdb58674170c0f7"
+	};
+
+	// Initialize Firebase
+	firebase.initializeApp(firebaseConfig);
+
+//	Funciones
+var max_fields = 4;
+var wrapper = $("#login");
+var add_button = $(".agregar");
+
+var x = 1;
+$(add_button).click(function(e){
+e.preventDefault();
+if(x < max_fields){
+x++;
+$(wrapper).append("<div id='out"+x+"'><input placeholder='Integrante "+x+"' id='div"+x+"'/></div>");
+}
+});
+
+$(".remove_field").click(function(e){
+e.preventDefault();
+$("#div"+x).remove();
+$("#out"+x).remove();
+if (x > 1) {
+	x--;
+} else {
+	return false;
+}
+})
+});
+</script>	<!-- FUNCIONES -->
+</body>
+</html>
